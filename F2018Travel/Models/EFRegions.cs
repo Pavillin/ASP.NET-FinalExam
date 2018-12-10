@@ -14,7 +14,8 @@ namespace F2018Travel.Models
             this.db = new ExamModel();
         }
 
-        public IQueryable<Region> Regions => throw new NotImplementedException();
+        //public IQueryable<Region> Regions => throw new NotImplementedException();
+        public IQueryable<Region> Regions { get { return db.Regions; } }
 
         public void Delete(int id)
         {

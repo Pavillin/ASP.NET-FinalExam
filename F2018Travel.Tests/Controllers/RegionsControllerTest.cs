@@ -38,5 +38,60 @@ namespace F2018Travel.Tests.Controllers
             mock.Setup(m => m.Regions).Returns(regions.AsQueryable());
             controller = new RegionsController(mock.Object);
         }
+
+        // GET: Regions
+        #region
+        [TestMethod]
+        public void IndexReturnsView()
+        {
+            //act
+            ViewResult result = controller.Index() as ViewResult;
+
+            //assert
+            Assert.AreEqual("Index", result.ViewName);
+        }
+
+        [TestMethod]
+        public void IndexReturnsTeams()
+        {
+            //act
+            var actual = (List<Region>)((ViewResult)controller.Index()).Model;
+            //assert
+            CollectionAssert.AreEqual(regions.ToList(), actual);
+        }
+        #endregion
+
+        // GET: Regions/Details/5
+        #region
+        [TestMethod]
+        public void DetailsNoId()
+        {
+            //act
+            var result = (ViewResult)controller.Details(null);
+
+            //assert
+            Assert.AreEqual("Error", result.ViewName);
+        }
+
+        [TestMethod]
+        public void DetailsInvalidId()
+        {
+            //act
+            var result = (ViewResult)controller.Details(67830);
+
+            //assert
+            Assert.AreEqual("Error", result.ViewName);
+        }
+
+        [TestMethod]
+        public void DetailsValidId()
+        {
+            //act - cast the model as an team object
+            Region actual = (Region)((ViewResult)controller.Details(78)).Model;
+
+            //assert - is this the first team in our mock array
+            Assert.AreEqual(regions[0], actual);
+        }
+        #endregion
     }
 }

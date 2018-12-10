@@ -21,6 +21,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                    <li>@Html.ActionLink("Regions", "Index", "Regions")</li>
+                    <li>@Html.ActionLink("Destinations", "Index", "Destinations")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -30,7 +35,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - COMP2084 Final</p>
+            <p>&copy; @DateTime.Now.Year - COMP2084 Final - Dylan Sprague - 200368636</p>
         </footer>
     </div>
 

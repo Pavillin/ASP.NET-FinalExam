@@ -10,9 +10,10 @@ using F2018Travel.Models;
 
 namespace F2018Travel.Controllers
 {
+    [Authorize]
     public class RegionsController : Controller
     {
-        private ExamModel db = new ExamModel();
+        //private ExamModel db = new ExamModel();
         private IMockRegions db;
 
         public RegionsController()
@@ -28,7 +29,8 @@ namespace F2018Travel.Controllers
         // GET: Regions
         public ActionResult Index()
         {
-            return View(db.Regions.ToList());
+            var regions = db.Regions.ToList();
+            return View("Index", regions);
         }
 
         // GET: Regions/Details/5
@@ -36,12 +38,14 @@ namespace F2018Travel.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
-            Region region = db.Regions.Find(id);
+            //Region region = db.Regions.Find(id);
+            Region region = db.Regions.SingleOrDefault(r => r.RegionId == id);
             if (region == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             return View(region);
         }

@@ -10,6 +10,7 @@ using F2018Travel.Models;
 
 namespace F2018Travel.Controllers
 {
+    [Authorize]
     public class DestinationsController : Controller
     {
         private ExamModel db = new ExamModel();
